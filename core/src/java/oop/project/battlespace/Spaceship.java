@@ -33,28 +33,6 @@ public class Spaceship extends BaseActor {
     public void act( float dt ) {
 
         super.act(dt);
-
-        float degreesPerSecond = 120; // rotation speed
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            rotateBy( degreesPerSecond * dt );
-        }
-        if( Gdx.input.isKeyPressed(Input.Keys.RIGHT) ) {
-            rotateBy(( -degreesPerSecond * dt ) );
-        }
-        if( Gdx.input.isKeyPressed(Input.Keys.UP) ) {
-            accelerateAtAngle( getRotation() );
-            applyPhysics( dt );
-            thrusters.setVisible(true);
-        }
-        else {
-            thrusters.setVisible(false);
-        }
-
-        shield.setOpacity(shieldPower / 100f);
-        if( shieldPower <= 0 ) {
-            shield.setVisible( false );
-        }
-
         wrapAroundWorld();
     }
 
