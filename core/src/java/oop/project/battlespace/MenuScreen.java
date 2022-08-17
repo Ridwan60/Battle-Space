@@ -1,6 +1,7 @@
-package java.oop.project.battlespace;
+package com.java.oop.project.battlespace;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class MenuScreen extends BaseScreen {
 
     private Rock[] rock;
+    private Button playButton, helpButton, exitButton;
 
     @Override
     public void initialize() {
@@ -32,7 +34,7 @@ public class MenuScreen extends BaseScreen {
         rock = new Rock[10];
         for( int i = 0; i < 10; i++ ) {
             float random = MathUtils.random(600);
-            rock[0] = new Rock( random, random, mainStage );
+            rock[0] = new Rock( 100 + random, random, mainStage );
         }
 
         // adding play button
@@ -41,16 +43,13 @@ public class MenuScreen extends BaseScreen {
         TextureRegion buttonRegion = new TextureRegion( buttonTex );
         buttonStyle.up = new TextureRegionDrawable( buttonRegion );
 
-        Button playButton = new Button(buttonStyle);
+        playButton = new Button(buttonStyle);
         playButton.setPosition(200, 250);
         uiStage.addActor( playButton );
 
         playButton.addListener( new ClickListener(){
             public boolean touchDown(InputEvent e, float x, float y, int pointer, int button) {
-                for( BaseActor rockActor : BaseActor.getList(mainStage, "java.oop.project.battlespace.Rock") ) {
-                    rockActor.remove();
-                }
-                SpaceGame.setActiveScreen( new LevelScreen() );
+                playButtonListener();
                 return false;
             }
         });
@@ -61,16 +60,13 @@ public class MenuScreen extends BaseScreen {
         buttonRegion = new TextureRegion( buttonTex );
         buttonStyle.up = new TextureRegionDrawable( buttonRegion );
 
-        Button helpButton = new Button(buttonStyle);
+        helpButton = new Button(buttonStyle);
         helpButton.setPosition(200, 130);
         uiStage.addActor( helpButton );
 
         helpButton.addListener( new ClickListener(){
             public boolean touchDown(InputEvent e, float x, float y, int pointer, int button) {
-                for( BaseActor rockActor : BaseActor.getList(mainStage, "java.oop.project.battlespace.Rock") ) {
-                    rockActor.remove();
-                }
-//                SpaceGame.setActiveScreen( new HelpScreen() );
+                helpButtonListener();
                 return false;
             }
         });
@@ -81,16 +77,13 @@ public class MenuScreen extends BaseScreen {
         buttonRegion = new TextureRegion( buttonTex );
         buttonStyle.up = new TextureRegionDrawable( buttonRegion );
 
-        Button exitButton = new Button(buttonStyle);
+        exitButton = new Button(buttonStyle);
         exitButton.setPosition(200, 10);
         uiStage.addActor( exitButton );
 
         exitButton.addListener( new ClickListener(){
             public boolean touchDown(InputEvent e, float x, float y, int pointer, int button) {
-                for( BaseActor rockActor : BaseActor.getList(mainStage, "java.oop.project.battlespace.Rock") ) {
-                    rockActor.remove();
-                }
-                System.exit(0);
+                exitButtonListener();
                 return false;
             }
         });
@@ -99,7 +92,7 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void update(float dt) {
 
-        ArrayList<BaseActor> list = BaseActor.getList(mainStage, "java.oop.project.battlespace.Rock");
+        ArrayList<BaseActor> list = BaseActor.getList(mainStage, "com.java.oop.project.battlespace.Rock");
 
         int sz = list.size();
         for( int i = 0; i < sz; i++ ) {
@@ -108,5 +101,38 @@ public class MenuScreen extends BaseScreen {
                 ( list.get(i) ).preventOverlap( (list.get(j)) );
             }
         }
+    }
+
+    private void playButtonListener() {
+        for( BaseActor rockActor : BaseActor.getList(mainStage, "com.java.oop.project.battlespace.Rock") ) {
+            rockActor.remove();
+        }
+        SpaceGame.setActiveScreen( new TransitionScreen01() );
+    }
+    private void helpButtonListener() {
+        for( BaseActor rockActor : BaseActor.getList(mainStage, "com.java.oop.project.battlespace.Rock") ) {
+            rockActor.remove();
+        }
+        SpaceGame.setActiveScreen( new HelpScreen() );
+    }
+    private void exitButtonListener() {
+        for( BaseActor rockActor : BaseActor.getList(mainStage, "com.java.oop.project.battlespace.Rock") ) {
+            rockActor.remove();
+        }
+        System.exit(0);
+    }
+
+    @Override
+    public boolean keyDown( int keyCode ) {
+        if(keyCode == Input.Keys.P) {
+            playButtonListener();
+        }
+        if(keyCode == Input.Keys.H) {
+            helpButtonListener();
+        }
+        if(keyCode == Input.Keys.E) {
+            exitButtonListener();
+        }
+        return false;
     }
 }
