@@ -11,7 +11,7 @@ public class Laser extends BaseActor{
 
         loadTexture( "laser.png" );
 
-        addAction(Actions.delay(1));
+        addAction(Actions.delay(2));
         addAction(Actions.after( Actions.fadeOut(0.5f) ));
         addAction(Actions.after( Actions.removeActor() ));
 
