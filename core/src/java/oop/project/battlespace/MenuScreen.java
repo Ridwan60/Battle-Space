@@ -1,4 +1,4 @@
-package com.java.oop.project.battlespace;
+package java.oop.project.battlespace;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -92,7 +92,7 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void update(float dt) {
 
-        ArrayList<BaseActor> list = BaseActor.getList(mainStage, "com.java.oop.project.battlespace.Rock");
+        ArrayList<BaseActor> list = BaseActor.getList(mainStage, "java.oop.project.battlespace.Rock");
 
         int sz = list.size();
         for( int i = 0; i < sz; i++ ) {
@@ -104,19 +104,19 @@ public class MenuScreen extends BaseScreen {
     }
 
     private void playButtonListener() {
-        for( BaseActor rockActor : BaseActor.getList(mainStage, "com.java.oop.project.battlespace.Rock") ) {
+        for( BaseActor rockActor : BaseActor.getList(mainStage, "java.oop.project.battlespace.Rock") ) {
             rockActor.remove();
         }
         SpaceGame.setActiveScreen( new TransitionScreen01() );
     }
     private void helpButtonListener() {
-        for( BaseActor rockActor : BaseActor.getList(mainStage, "com.java.oop.project.battlespace.Rock") ) {
+        for( BaseActor rockActor : BaseActor.getList(mainStage, "java.oop.project.battlespace.Rock") ) {
             rockActor.remove();
         }
         SpaceGame.setActiveScreen( new HelpScreen() );
     }
     private void exitButtonListener() {
-        for( BaseActor rockActor : BaseActor.getList(mainStage, "com.java.oop.project.battlespace.Rock") ) {
+        for( BaseActor rockActor : BaseActor.getList(mainStage, "java.oop.project.battlespace.Rock") ) {
             rockActor.remove();
         }
         System.exit(0);
